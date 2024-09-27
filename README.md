@@ -10,7 +10,7 @@ See documentation in the parent repo: https://github.com/SwiftfulThinking/Swiftf
 #if DEBUG
 let logger = LogManager(services: [ConsoleService()])
 #else
-let logger = LogManager(services: [MixpanelService(), FirebaseAnalyticsService(), AnotherDependencyService()])
+let logger = LogManager(services: [MixpanelService()])
 #endif
 ```
 
