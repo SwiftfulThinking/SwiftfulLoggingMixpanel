@@ -1,5 +1,5 @@
 {
-  "originHash" : "a023294b15496ec608cf88805e26a3f869e9c451b1352273a286cf72d1d9a3b8",
+  "originHash" : "49a7be27efcbb53aa827203f3dc6fe6a810d0d4423a958b2e049f1332dc20a52",
   "pins" : [
     {
       "identity" : "mixpanel-swift",
@@ -24,8 +24,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SwiftfulThinking/SwiftfulLogging.git",
       "state" : {
-        "revision" : "3ae1dd22fd9e4d4e3be9620fafcbcbfa1c5d426f",
-        "version" : "1.0.0"
+        "revision" : "de4f3398e557ede01bc5407c802eb7769d804e5e",
+        "version" : "1.0.5"
       }
     }
   ],

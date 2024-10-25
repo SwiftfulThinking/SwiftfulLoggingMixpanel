@@ -9,13 +9,13 @@ public struct MixpanelService: LogService {
         Mixpanel.mainInstance()
     }
 
-    public init(token: String) {
+    public init(token: String, loggingEnabled: Bool = false) {
         #if !os(OSX) && !os(watchOS)
         Mixpanel.initialize(token: token, trackAutomaticEvents: true)
         #else
         Mixpanel.initialize(token: token)
         #endif
-        instance.loggingEnabled = false
+        instance.loggingEnabled = loggingEnabled
     }
 
     public func identifyUser(userId: String, name: String?, email: String?) {
@@ -30,17 +30,43 @@ public struct MixpanelService: LogService {
     }
 
     public func trackEvent(event: LoggableEvent) {
-        let properties = event.parameters?.mapValues({ $0 as? MixpanelType })
-        Mixpanel.mainInstance().track(event: event.eventName, properties: properties)
+        // Mixpanel allows up to 5,000 User Properties, keys limited to 255 characters
+        // https://docs.mixpanel.com/docs/data-structure/events-and-properties
+
+        var properties: [String: MixpanelType] = [:]
+
+        if let parameters = event.parameters {
+            for (key, value) in parameters {
+                let key = key.clipped(maxCharacters: 255)
+                if let value = value as? MixpanelType {
+                    properties[key] = value
+                }
+            }
+        }
+
+        Mixpanel.mainInstance().track(event: event.eventName, properties: properties.isEmpty ? nil : properties)
     }
 
     public func trackScreenView(event: any LoggableEvent) {
         trackEvent(event: event)
     }
 
-    public func addUserProperties(dict: SendableDict) {
-        let properties = dict.dict.mapValues({ $0 as? MixpanelType })
-        instance.people.set(properties: properties)
+    public func addUserProperties(dict: SendableDict, isHighPriority: Bool) {
+        // Mixpanel allows up to 2,000 User Properties, keys limited to 255 characters
+        // https://docs.mixpanel.com/docs/data-structure/user-profiles#
+        
+        var properties: [String: MixpanelType] = [:]
+
+        for (key, value) in dict.dict {
+            let key = key.clipped(maxCharacters: 255)
+            if let value = value as? MixpanelType {
+                properties[key] = value
+            }
+        }
+        
+        if !properties.isEmpty {
+            instance.people.set(properties: properties)
+        }
     }
 
     public func deleteUserProfile() {
