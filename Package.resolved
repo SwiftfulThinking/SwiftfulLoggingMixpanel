@@ -11,21 +11,12 @@
       }
     },
     {
-      "identity" : "sendabledictionary",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/SwiftfulThinking/SendableDictionary.git",
-      "state" : {
-        "revision" : "87eca8178bb0b64a2f1a6191ac42b2e73620db07",
-        "version" : "1.0.0"
-      }
-    },
-    {
       "identity" : "swiftfullogging",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SwiftfulThinking/SwiftfulLogging.git",
       "state" : {
-        "revision" : "de4f3398e557ede01bc5407c802eb7769d804e5e",
-        "version" : "1.0.5"
+        "revision" : "ecfd102c0bcbc9474d2a598305ae7694d269b5b3",
+        "version" : "1.1.1"
       }
     }
   ],

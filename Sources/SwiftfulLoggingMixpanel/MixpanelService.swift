@@ -5,6 +5,10 @@ import SendableDictionary
 
 public struct MixpanelService: LogService {
 
+    static var distinctId: String? {
+        Mixpanel.mainInstance().distinctId
+    }
+
     private var instance: MixpanelInstance {
         Mixpanel.mainInstance()
     }
@@ -51,13 +55,13 @@ public struct MixpanelService: LogService {
         trackEvent(event: event)
     }
 
-    public func addUserProperties(dict: SendableDict, isHighPriority: Bool) {
+    public func addUserProperties(dict: [String: Any], isHighPriority: Bool) {
         // Mixpanel allows up to 2,000 User Properties, keys limited to 255 characters
         // https://docs.mixpanel.com/docs/data-structure/user-profiles#
         
         var properties: [String: MixpanelType] = [:]
 
-        for (key, value) in dict.dict {
+        for (key, value) in dict {
             let key = key.clipped(maxCharacters: 255)
             if let value = value as? MixpanelType {
                 properties[key] = value
