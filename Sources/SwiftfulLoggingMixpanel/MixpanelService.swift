@@ -1,7 +1,6 @@
 import Foundation
 import Mixpanel
 import SwiftfulLogging
-import SendableDictionary
 
 public struct MixpanelService: LogService {
 
