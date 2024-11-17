@@ -4,7 +4,7 @@ import SwiftfulLogging
 
 public struct MixpanelService: LogService {
 
-    static var distinctId: String? {
+    public static var distinctId: String? {
         Mixpanel.mainInstance().distinctId
     }
 
